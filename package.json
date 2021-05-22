@@ -10,7 +10,10 @@
     "type": "git",
     "url": "yes"
   },
-  "keywords": ["discord", "bot"],
+  "keywords": [
+    "discord",
+    "bot"
+  ],
   "author": "Jeetadiya Chatterjee",
   "license": "MIT",
   "dependencies": {
@@ -18,6 +21,7 @@
     "dotenv": "^10.0.0"
   },
   "engines": {
-    "node": "12.x"
+    "node": "12.x",
+    "npm": "6.14.8"
   }
 }
