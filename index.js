@@ -33,6 +33,13 @@ const commands = {
       );
     },
   },
+
+  ping: {
+    description: "reply with pong",
+    function: (interaction, _args) => {
+      slashReturnText(interaction, "pong");
+    },
+  },
 };
 
 client.on("ready", () => {
