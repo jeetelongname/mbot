@@ -4,16 +4,14 @@
   "description": "A bunch of slash commands that I wanted to add",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
     "url": "yes"
   },
-  "keywords": [
-    "discord",
-    "bot"
-  ],
+  "keywords": ["discord", "bot"],
   "author": "Jeetadiya Chatterjee",
   "license": "MIT",
   "dependencies": {
