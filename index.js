@@ -74,10 +74,12 @@ const commands = {
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}`);
 
+  // defines all of the slash commands
   for (const command of Object.keys(commands)) {
     slashSimpleDefine(command, commands[command].description);
   }
 
+  // when called runs the associated functions
   client.ws.on("INTERACTION_CREATE", async (interaction) => {
     const command = interaction.data.name.toLowerCase();
     const args = interaction.data.options;
