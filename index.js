@@ -6,17 +6,17 @@ const guildID = "711576565112373319";
 const commands = {
   hello: {
     description: "hello world",
-    function: (interaction, _args) => {
-      slashReturnText(interaction, "hello world!");
+    type: "text",
+    function: () => {
+      return "hello world!";
     },
   },
 
   f: {
     description: "reply with f",
-    function: (interaction, _args) => {
-      slashReturnText(
-        interaction,
-        `
+    type: "text",
+    function: () => {
+      return `
 ⠀⠀⠀⢀⡤⢶⣶⣶⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⢀⣠⣤⣤⣤⣿⣧⣀⣀⣀⣀⣀⣀⣀⣀⣤⡄⠀
 ⢠⣾⡟⠋⠁⠀⠀⣸⠇⠈⣿⣿⡟⠉⠉⠉⠙⠻⣿⡀
@@ -29,24 +29,23 @@ const commands = {
 ⠀⢸⡟⠀⠀⠀⠘⠀⠀⠀⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀
 ⠀⠈⢿⡄⠀⠀⠀⠀⠀⣼⣿⠏⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠙⠷⠶⠶⠶⠿⠟⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀
-`
-      );
+`;
     },
   },
 
   ping: {
     description: "reply with pong",
-    function: (interaction, _args) => {
-      slashReturnText(interaction, "pong");
+    type: "text",
+    function: () => {
+      return "pong";
     },
   },
 
   amogus: {
     description: "amogus",
-    function: (interaction) =>
-      slashReturnText(
-        interaction,
-        `
+    type: "text",
+    function: () => {
+      return `
 ⠀⠀⠀⠀⠀⠀     ⣠⣤⣤⣤⣤⣤⣶⣦⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⡿⠛⠉⠙⠛⠛⠛⠛⠻⢿⣿⣷⣤⡀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⠋⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⠈⢻⣿⣿⡄⠀⠀⠀⠀
@@ -66,9 +65,20 @@ const commands = {
 ⠀⠀⠀⠀⠀⠀⠀⣿⣿⠀⠀⠀⠀⠀⣿⣿⡇⠀⢹⣿⡆⠀⠀⠀⣸⣿⠇⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⢿⣿⣦⣄⣀⣠⣴⣿⣿⠁⠀⠈⠻⣿⣿⣿⣿⡿⠏⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠈⠛⠻⠿⠿⠿⠿⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-`
-      ),
+`;
+    },
   },
+
+  help: {
+    description: "Get all of the commands that you can use",
+    type: "text",
+    function: () => {
+      return `\n` + Object.keys(commands).map(command => {
+        return `**/${command}**: ${commands[command].description
+          .trim().replace(/^\w/, (c) => c.toUpperCase())}\n` // properly capitalises the string
+      }).join("");
+    }
+  }
 };
 
 client.on("ready", () => {
@@ -84,7 +94,10 @@ client.on("ready", () => {
     const command = interaction.data.name.toLowerCase();
     const args = interaction.data.options;
 
-    commands[command].function(interaction, args);
+    switch (commands[command].type) {
+      case "text":
+        slashReturnText(interaction, commands[command].function(args));
+    }
   });
 });
 
