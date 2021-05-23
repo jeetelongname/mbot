@@ -6,7 +6,7 @@ use Rack::Static,
 
 run lambda { |_env|
   [
-    ENV['PORT'],
+    200,
     {
       'Content-Type' => 'text/html',
       'Cache-Control' => 'public, max-age=86400'
