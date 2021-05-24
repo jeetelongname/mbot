@@ -1,5 +1,7 @@
 require("dotenv").config();
+
 const Discord = require("discord.js");
+
 const client = new Discord.Client();
 const guildID = "711576565112373319";
 
@@ -81,6 +83,8 @@ const commands = {
   }
 };
 
+const replys = {}
+
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}`);
 
@@ -99,6 +103,12 @@ client.on("ready", () => {
         slashReturnText(interaction, commands[command].function(args));
     }
   });
+});
+
+client.on("message", (message) => {
+  if (message.content in replys) {
+    message.reply(replys[message.content]);
+  };
 });
 
 function slashReturnText(interaction, text) {
